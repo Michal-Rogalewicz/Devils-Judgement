@@ -1,17 +1,5 @@
-"""Mover - the shared movement engine for the devil and the angels.
+#Mover - the shared movement engine for the devil and the angels.
 
-Remember the itch from building the Angel - both characters slide tile-to-tile
-in exactly the same way? This is the fix: the shared logic lives here once, and
-both Devil and Angel inherit it. That's the bit of clean architecture worth
-being able to talk about: "I noticed the duplication and pulled it into a base
-class so each character only has to define how it *chooses* a direction."
-
-The movement pattern itself:
-  - we track the tile we're ON (col, row) and the tile we're heading TO (target)
-  - `progress` slides 0.0 -> 1.0 between them
-  - on arrival, the subclass decides the next target
-This means a character can never end up halfway inside a wall.
-"""
 
 import pygame
 import settings

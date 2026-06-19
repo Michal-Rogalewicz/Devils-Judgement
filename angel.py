@@ -1,16 +1,4 @@
-"""The angels - the hunters.
-
-Also a Mover, so the sliding is inherited. The interesting part is how an angel
-*chooses* its direction, which depends on its current mode:
-
-  CHASE      - head toward the devil (greedy: pick the exit that gets closest)
-  SCATTER    - wander, so they don't gang up relentlessly (classic arcade rhythm)
-  FRIGHTENED - you grabbed a halo and now look like one of them; they flee and
-               move slower, and you can redeem them on contact
-
-Angels never reverse on the spot (it looks broken and feels unfair), except in
-a true dead end.
-"""
+#The angels - the hunters.
 
 import random
 import settings

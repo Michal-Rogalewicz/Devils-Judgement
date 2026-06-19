@@ -1,8 +1,5 @@
-"""The devil - the player you control.
+#The devil - the player you control.
 
-It inherits all the sliding movement from Mover (see entity.py) and only adds
-the one thing that makes it the *player*: it moves where the keyboard tells it.
-"""
 
 import pygame
 import settings

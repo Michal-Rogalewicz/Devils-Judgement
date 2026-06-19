@@ -1,9 +1,4 @@
-"""Game - orchestrates everything.
-
-This is where the rules live: the state machine (menu / playing / paused /
-win / lose), scoring, lives, the angel mode rhythm, the halo and sin effects,
-the redemption gate, and collisions. Each piece is small; read them in order.
-"""
+#Game - orchestrates everything.
 
 import pygame
 import settings

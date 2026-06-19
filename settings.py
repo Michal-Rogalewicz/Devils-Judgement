@@ -1,8 +1,4 @@
-"""Game-wide constants - the control panel.
-
-Tweak almost anything about how the game plays from right here, without
-hunting through the logic. The maze layout itself lives in maze.py.
-"""
+#Game-wide constants - the control panel.
 
 # Grid / window
 TILE = 28

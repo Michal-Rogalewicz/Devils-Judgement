@@ -1,17 +1,5 @@
-"""The maze: the grid the whole game lives on.
+#The maze: the grid the whole game lives on.
 
-The layout is just text - one character per tile:
-    #  wall
-    .  a good deed (collect for points + progress to the gate)
-    H  a halo power-up (disguises you; angels flee)
-    S  a temptation/sin (big points, but it summons another angel)
-    G  the gate to heaven (a wall until you've earned enough; then your exit)
-    D  the devil's start tile
-    (space) empty path, no pickup
-
-Keeping the level as editable data (not code) means you can redesign the whole
-map by typing - just keep every row the same width (19 here).
-"""
 
 import pygame
 import settings
