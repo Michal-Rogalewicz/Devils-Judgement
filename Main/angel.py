@@ -1,6 +1,7 @@
 #The angels - the hunters.
 
 import random
+import pygame
 import settings
 from entity import Mover
 
@@ -51,7 +52,6 @@ class Angel(Mover):
             self._decide(maze, devil, mode)
 
     def draw(self, surface, maze, scared):
-        import pygame
         pos = self.pixel_pos(maze)
         radius = int(settings.TILE * 0.4)
         body = settings.ANGEL_SCARED if scared else settings.ANGEL_COLOR

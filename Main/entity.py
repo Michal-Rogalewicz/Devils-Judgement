@@ -1,6 +1,5 @@
 #Mover - the shared movement engine for the devil and the angels.
 
-
 import pygame
 import settings
 

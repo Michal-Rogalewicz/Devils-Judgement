@@ -5,6 +5,7 @@ import settings
 from maze import Maze
 from player import Devil
 from angel import Angel
+from climb import ClimbGame   ###:) <-- 
 
 ANGEL_SPAWNS = [(1, 1), (17, 1), (1, 19), (17, 19)]
 START_ANGELS = 3
@@ -24,6 +25,7 @@ class Game:
         self.small = pygame.font.SysFont("consolas", 17)
         self.state = settings.MENU
         self.running = True
+        self.climb_game = None   # <
 
     # ---------------------------------------------------------------- setup
     def reset(self):
@@ -58,7 +60,10 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
-                self._on_key(event.key)
+                if self.state == settings.CLIMB:
+                    self.climb_game.handle_event(event)
+                else:
+                    self._on_key(event.key)
 
     def _on_key(self, key):
         if self.state == settings.MENU:
@@ -88,7 +93,15 @@ class Game:
             elif key == pygame.K_ESCAPE:
                 self.state = settings.MENU
 
-        elif self.state in (settings.WIN, settings.LOSE):
+        elif self.state == settings.WIN:
+            # we no longer go directly to win; we transition to climb
+            # but if we are already at final win, this will handle menu
+            if key in (pygame.K_SPACE, pygame.K_RETURN):
+                self.state = settings.MENU
+            elif key == pygame.K_ESCAPE:
+                self.running = False
+
+        elif self.state == settings.LOSE:
             if key in (pygame.K_SPACE, pygame.K_RETURN):
                 self.state = settings.MENU
             elif key == pygame.K_ESCAPE:
@@ -96,9 +109,19 @@ class Game:
 
     # ---------------------------------------------------------------- update
     def update(self, dt):
-        if self.state != settings.PLAYING:
-            return
+        if self.state == settings.PLAYING:
+            self._update_playing(dt)
 
+        elif self.state == settings.CLIMB:
+            self.climb_game.update(dt)
+            if self.climb_game.done:
+                if self.climb_game.game_state == settings.CLIMB_STATE_WON:
+                    self.state = settings.WIN
+                else:
+                    self.state = settings.LOSE
+                self.climb_game = None
+
+    def _update_playing(self, dt):
         self._update_modes(dt)
         mode = settings.FRIGHTENED if self.scared_timer > 0 else self.base_mode
 
@@ -173,11 +196,18 @@ class Game:
 
     def _check_win(self):
         if self.maze.gate_open and (self.devil.col, self.devil.row) == self.maze.gate:
-            self.state = settings.WIN
+            # transition to climb minigame instead of showing win screen
+            self._start_climb_minigame()
+
+    def _start_climb_minigame(self):
+        self.climb_game = ClimbGame(self.maze.width_px, self.maze.height_px + settings.HUD_HEIGHT)
+        self.climb_game.set_fonts(self.big, self.mid, self.small)
+        self.state = settings.CLIMB
 
     # ---------------------------------------------------------------- draw
     def draw(self):
         self.screen.fill(settings.BG_COLOR)
+
         if self.state == settings.MENU:
             self._draw_menu()
         elif self.state in (settings.PLAYING, settings.PAUSED):
@@ -190,6 +220,9 @@ class Game:
         elif self.state == settings.LOSE:
             self._overlay("CAST BACK TO HELL", f"Score {self.score}   -   SPACE for menu",
                           settings.LOSE_COLOR)
+        elif self.state == settings.CLIMB:
+            self.climb_game.draw(self.screen)
+
         pygame.display.flip()
 
     def _draw_play(self):
@@ -247,8 +280,6 @@ class Game:
         self._center(self.mid, "Press SPACE to begin", cx, y + 20, settings.WIN_COLOR)
 
     def _overlay(self, title, subtitle, color):
-        if self.state in (settings.WIN, settings.LOSE):
-            pass  # plain background
         cx = self.screen.get_width() // 2
         cy = self.screen.get_height() // 2
         self._center(self.big, title, cx, cy - 30, color)

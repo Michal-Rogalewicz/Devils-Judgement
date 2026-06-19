@@ -1,5 +1,7 @@
 #Game-wide constants - the control panel.
 
+import pygame
+
 # Grid / window
 TILE = 28
 HUD_HEIGHT = 56
@@ -53,6 +55,13 @@ PLAYING = "playing"
 PAUSED  = "paused"
 WIN     = "win"
 LOSE    = "lose"
+CLIMB   = "climb"
+
+# Climb minigame internal states
+CLIMB_STATE_START   = "START"
+CLIMB_STATE_PLAYING = "PLAYING"
+CLIMB_STATE_WON     = "WON"
+CLIMB_STATE_LOST    = "LOST"
 
 # Angel modes
 SCATTER    = "scatter"
@@ -65,3 +74,17 @@ DOWN  = (0, 1)
 LEFT  = (-1, 0)
 RIGHT = (1, 0)
 STOP  = (0, 0)
+
+################# look down here for more
+# climb minigame settings :P
+CLIMB_STEPS = 20
+CLIMB_TIME_LIMIT = 20
+CLIMB_SIZE = 30
+CLIMB_PLAYER_X = 400   # centre of screen
+CLIMB_PLAYER_Y = 500   # near bottom
+
+CLIMB_VALID_KEYS = {
+    pygame.K_w: 'W', pygame.K_a: 'A', pygame.K_s: 'S', pygame.K_d: 'D',
+    pygame.K_UP: 'UP', pygame.K_DOWN: 'DN', pygame.K_LEFT: 'LT', pygame.K_RIGHT: 'RT'
+}
+CLIMB_KEY_NAMES = ['W', 'A', 'S', 'D', 'UP', 'DN', 'LT', 'RT']

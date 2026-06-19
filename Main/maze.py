@@ -1,6 +1,5 @@
 #The maze: the grid the whole game lives on.
 
-
 import pygame
 import settings
 

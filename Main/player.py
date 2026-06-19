@@ -1,6 +1,5 @@
 #The devil - the player you control.
 
-
 import pygame
 import settings
 from entity import Mover
