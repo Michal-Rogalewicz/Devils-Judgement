@@ -2,7 +2,7 @@
 
 A Pac-Man-style maze game built with Python and Pygame, with a twist: you play a **devil sneaking into heaven**. Collect good deeds to earn your way to the gate, dodge the angels hunting you, then survive a frantic key-mashing climb to ascend.
 
-🏆Won first place at Big Creative Education Tech Jam 2026
+🏆Won first place at Big Creative Education Tech Jam 2026🏆
 
 ## Gameplay
 
